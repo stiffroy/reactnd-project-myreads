@@ -14,10 +14,19 @@ class SearchBooks extends React.Component {
             query: newQuery
         })
         BooksAPI.search(newQuery).then((res) => {
-            console.log(res)
-            this.setState({
-                books: res && !res.error ? res : []
-            })
+            if (res && !res.error) {
+                res.forEach(book => {
+                    let shelvedBook = this.props.books.filter(b => b.id === book.id)
+
+                    if (shelvedBook.length > 0) {
+                        book.shelf = shelvedBook[0].shelf
+                    }
+                })
+
+                this.setState({
+                    books: res
+                })
+            }
         })
     }
     render() {
