@@ -20,6 +20,8 @@ class SearchBooks extends React.Component {
 
                     if (shelvedBook.length > 0) {
                         book.shelf = shelvedBook[0].shelf
+                    } else {
+                        book.shelf = 'none'
                     }
                 })
 
